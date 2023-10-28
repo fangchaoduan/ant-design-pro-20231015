@@ -29,7 +29,7 @@ export default defineConfig({
    * @doc https://umijs.org/docs/guides/routes
    */
   // umi routes: https://umijs.org/docs/routing
-  routes,
+  routes: routes,
   /**
    * @name 主题的配置
    * @description 虽然叫主题，但是其实只是 less 的变量设置
@@ -79,7 +79,7 @@ export default defineConfig({
   title: 'Ant Design Pro',
   layout: {
     locale: true,
-    ...defaultSettings,
+    defaultSettings: defaultSettings,
   },
   /**
    * @name moment2dayjs 插件

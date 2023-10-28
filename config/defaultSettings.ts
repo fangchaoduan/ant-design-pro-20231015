@@ -7,7 +7,7 @@ interface ProLayoutSettingsType extends ProLayoutProps {
   pwa?: boolean;
   logo?: string;
 }
-const Settings: ProLayoutSettingsType = {
+const defaultSettings: ProLayoutSettingsType = {
   navTheme: 'light', //导航的主题;
 
   colorPrimary: '#1890ff', //拂晓蓝;//主色，需要配合umi使用;
@@ -20,13 +20,18 @@ const Settings: ProLayoutSettingsType = {
   title: '框架Layout的标题', //Layout的title，也会显示在浏览器标签上;
   // 同步处理menuData的数据，可以动态的控制数据; 异步数据推荐使用 menu.request 和 params。
   menuDataRender: (theList: MenuDataItem[]) => {
-    let theMenuItem: MenuDataItem = {
-      path: '/一级测试路由URL路径',
-      name: '一级测试路由',
-      icon: 'smile',
-    };
-    let theMenuList = (theList || []).concat(theMenuItem);
-    return theMenuList;
+    // // 这个好像是在运行时的;同时由于这里不能引入React组件,导致这里最好只能复制或删除一些路由;
+    // let theMenuItem: MenuDataItem = {
+    //   path: '/一级测试路由URL路径',
+    //   name: '同步方式修改路由的新增页面',
+    //   icon: 'smile',
+    //   component: './Welcome',
+    // };
+    // let theMenuList = (theList || []).concat(theMenuItem);
+    // console.log(`theMenuList-->`, theMenuList);
+
+    // return theMenuList;
+    return theList;
   },
   pwa: true,
   logo: 'https://www.baidu.com/img/PCfb_5bf082d29588c07f842ccde3f97243ea.png', //首页logo的配置，可以配置url，React组件和false;
@@ -49,4 +54,4 @@ const Settings: ProLayoutSettingsType = {
   },
 };
 
-export default Settings;
+export default defaultSettings;

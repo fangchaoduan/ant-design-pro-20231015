@@ -1,4 +1,5 @@
 export default {
+  'menu.前端写死布局组件名称': '前端写死中文本地化',
   'menu.welcome': '欢迎',
   'menu.more-blocks': '更多区块',
   'menu.home': '首页',
