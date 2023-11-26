@@ -15,7 +15,7 @@
 
 // 这些路由是前端配置的,也就是默认都有的;
 const routes: IConfigFromPlugins['routes'] = [
-  // 框架自带非布局页-用户登录页-登录后才能进其它的布局页;
+  // 框架自带非布局页-用户登录页-登录后才能进其它的布局页-这里之所以为登录页,是因为`//src/app.tsx`中在代码逻辑设置了它;
   {
     path: '/user',
     layout: false,
@@ -77,6 +77,22 @@ const routes: IConfigFromPlugins['routes'] = [
     name: '前端写死布局组件名称',
     icon: 'smile',
     component: './FangFrontEndLayoutComponent/FangFrontEndLayoutComponent.tsx',
+  },
+
+  // 个人自定义布局页-无需登录的自定义布局页-这里之所以无需登录,是因为`//src/app.tsx`中在代码逻辑设置了它;
+  {
+    path: '/noLoginRequiredLayoutPage',
+    name: '无需登录的自定义布局页',
+    icon: 'smile',
+    component: './noLoginRequiredLayoutPage.tsx',
+  },
+  // 个人自定义非布局页-无需登录的自定义非布局页;
+  {
+    path: '/noLoginRequiredPage',
+    layout: false,
+    name: '无需登录的自定义非布局页',
+    icon: 'smile',
+    component: './noLoginRequiredPage.tsx',
   },
 
   // 个人自定义非布局页-需登录的非布局页示例;

@@ -6,15 +6,19 @@ import { SettingDrawer } from '@ant-design/pro-components';
 import type { RunTimeLayoutConfig } from '@umijs/max';
 import { history, Link } from '@umijs/max';
 import defaultSettings from '../config/defaultSettings';
+import { AvatarDropdown, AvatarName } from './components/RightContent/AvatarDropdown';
 import { errorConfig } from './requestErrorConfig';
 import { currentUser as queryCurrentUser } from './services/ant-design-pro/api';
-import React from 'react';
-import { AvatarDropdown, AvatarName } from './components/RightContent/AvatarDropdown';
 const isDev = process.env.NODE_ENV === 'development';
 const loginPath = '/user/login';
 
+// 配置所有无需登录的路径;
+const noLoginRequiredPathList = [`/noLoginRequiredLayoutPage`, `/noLoginRequiredPage`];
+
 /**
  * @see  https://umijs.org/zh-CN/plugins/plugin-initial-state
+ * 在整个应用加载前请求用户信息或者一些全局依赖的基础数据。这些信息通常会用于 Layout 上的基础信息（通常是用户信息），权限初始化，以及很多页面都可能会用到的基础数据。
+ * 参考: [全局初始数据](https://pro.ant.design/zh-CN/docs/initial-state/)
  * */
 export async function getInitialState(): Promise<{
   settings?: Partial<LayoutSettings>;
@@ -33,6 +37,16 @@ export async function getInitialState(): Promise<{
     }
     return undefined;
   };
+
+  // 获取全局初始数据时的处理;
+  if (noLoginRequiredPathList.includes(history?.location?.pathname)) {
+    return {
+      fetchUserInfo,
+      currentUser: undefined,
+      settings: defaultSettings as Partial<LayoutSettings>,
+    };
+  }
+
   // 如果不是登录页面，执行
   const { location } = history;
   if (location.pathname !== loginPath) {
@@ -51,6 +65,8 @@ export async function getInitialState(): Promise<{
 
 // ProLayout 支持的api https://procomponents.ant.design/components/layout
 export const layout: RunTimeLayoutConfig = ({ initialState, setInitialState }) => {
+  console.log(`动态修改: initialState-->`, initialState);
+
   return {
     actionsRender: () => [<Question key="doc" />, <SelectLang key="SelectLang" />],
     avatarProps: {
@@ -65,9 +81,16 @@ export const layout: RunTimeLayoutConfig = ({ initialState, setInitialState }) =
     },
     footerRender: () => <Footer />,
     onPageChange: () => {
-      const { location } = history;
+      // const { location } = history;
+      // console.log(`页面跳转时: history-->`, history);
+
+      // 页面跳转时的处理;
+      if (noLoginRequiredPathList.includes(history?.location?.pathname)) {
+        return;
+      }
+
       // 如果没有登录，重定向到 login
-      if (!initialState?.currentUser && location.pathname !== loginPath) {
+      if (!initialState?.currentUser && history?.location?.pathname !== loginPath) {
         history.push(loginPath);
       }
     },
