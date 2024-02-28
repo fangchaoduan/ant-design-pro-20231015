@@ -21,6 +21,16 @@ export default {
   //     changeOrigin: true,
   //   },
   // },
+  dev: {
+    // localhost:8000/api/** -> https://preview.pro.ant.design/api/**
+    '/api/': {
+      // 要代理的地址
+      target: 'http://localhost:3000', //这个服务是我在
+      // 配置了这个可以从 http 代理到 https
+      // 依赖 origin 的功能可能需要这个，比如 cookie
+      changeOrigin: true,
+    },
+  },
 
   /**
    * @name 详细的代理配置

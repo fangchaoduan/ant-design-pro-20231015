@@ -1,0 +1,122 @@
+.SendMailButtonContainer {
+  position: absolute;
+  top: 0px;
+  left: 0px;
+  z-index: 100;
+  display: flex;
+  flex-direction: column;
+  width: 100%;
+  height: 100%;
+  background-color: rgba(245, 245, 245, 1);
+
+  .the-head01-box {
+    display: flex;
+    align-items: center;
+    width: 100%;
+    min-height: 64px;
+    padding: 0px 0px 0px 24px;
+    background-color: #fdfdfd;
+
+    .ant-btn {
+      margin: 0px 12px 0px 0px;
+    }
+  }
+
+  .the-title01-box {
+    padding: 0px 0px 20px 24px;
+    background-color: #fdfdfd;
+
+    .the-title-text {
+      display: flex;
+      font-weight: 700;
+      font-size: 20px;
+
+      font-family: 'Source Han Sans';
+      line-height: 28px;
+      letter-spacing: 0em;
+      text-align: left;
+    }
+
+    .the-title-body {
+      display: flex;
+      // align-items: center;
+      margin: 10px 0px 0px 0px;
+      .the-image {
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        width: 40px;
+        height: 40px;
+        margin: 5px 10px 10px 0px;
+        border: 1px solid #f6f8fc;
+        border-radius: 50%;
+      }
+
+      .the-text-box {
+        .the-sender-box {
+          display: flex;
+          font-weight: 400;
+          font-size: 14px;
+
+          font-family: 'Source Han Sans CN';
+          line-height: 24px;
+          letter-spacing: 0px;
+
+          .the-text01 {
+            margin: 0px 10px 0px 0px;
+            color: rgba(0, 0, 0, 0.6);
+          }
+
+          .the-text02 {
+            margin: 0px 10px 0px 0px;
+            color: rgba(52, 136, 255, 1);
+            cursor: pointer;
+          }
+
+          .the-text03 {
+            margin: 0px 10px 0px 0px;
+            color: rgba(0, 0, 0, 0.3);
+          }
+
+          .the-text04 {
+            margin: 0px 20px 0px 0px;
+            color: rgba(0, 0, 0, 0.3);
+          }
+
+          .the-text05 {
+            margin: 0px 10px 0px 0px;
+            color: rgba(0, 0, 0, 1);
+          }
+        }
+      }
+    }
+  }
+
+  .the-body01-box {
+    @the-mergin-width: 24px;
+
+    &.is-flex {
+      display: flex;
+    }
+
+    flex-grow: 1;
+    width: calc(100% - 2 * @the-mergin-width);
+    margin: @the-mergin-width @the-mergin-width 0px @the-mergin-width;
+    overflow-x: hidden;
+    overflow-y: auto;
+    background-color: #fdfdfd;
+
+    .ant-form {
+      margin: 20px 0px 10px 0px;
+      .ant-form-item {
+        margin: 0px 0px 0px 0px;
+      }
+      .half-width {
+        width: calc(50% - 16px);
+      }
+      .overall-width {
+        width: calc(100% - 2 * 16px);
+      }
+    }
+  }
+}

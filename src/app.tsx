@@ -19,13 +19,16 @@ const noLoginRequiredPathList = [`/noLoginRequiredLayoutPage`, `/noLoginRequired
  * 在整个应用加载前请求用户信息或者一些全局依赖的基础数据。这些信息通常会用于 Layout 上的基础信息（通常是用户信息），权限初始化，以及很多页面都可能会用到的基础数据。
  * 参考: [全局初始数据](https://pro.ant.design/zh-CN/docs/initial-state/)
  * */
-export async function getInitialState(): Promise<{
+type GetInitialStateRequest = {
   settings?: Partial<LayoutSettings>;
   currentUser?: API.CurrentUser;
   loading?: boolean;
   fetchUserInfo?: () => Promise<API.CurrentUser | undefined>;
-}> {
-  const fetchUserInfo = async () => {
+};
+export async function getInitialState() {
+  console.log(`getInitialState执行-->`);
+
+  const getUserInfo = async () => {
     try {
       const msg = await queryCurrentUser({
         skipErrorHandler: true,
@@ -37,29 +40,45 @@ export async function getInitialState(): Promise<{
     return undefined;
   };
 
+  const result: GetInitialStateRequest = {
+    settings: defaultSettings as Partial<LayoutSettings>,
+    currentUser: undefined,
+    loading: undefined,
+    fetchUserInfo: getUserInfo,
+  };
+
   // 获取全局初始数据时的处理;
   if (noLoginRequiredPathList.includes(history?.location?.pathname)) {
-    return {
-      fetchUserInfo,
-      currentUser: undefined,
-      settings: defaultSettings as Partial<LayoutSettings>,
-    };
+    // return {
+    //   fetchUserInfo: getUserInfo,
+    //   currentUser: undefined,
+    //   settings: defaultSettings as Partial<LayoutSettings>,
+    // };
+
+    return result;
   }
 
   // 如果不是登录页面，执行
   const { location } = history;
   if (location.pathname !== loginPath) {
-    const currentUser = await fetchUserInfo();
-    return {
-      fetchUserInfo,
-      currentUser,
-      settings: defaultSettings as Partial<LayoutSettings>,
-    };
+    // const currentUser = await getUserInfo();
+    // return {
+    //   fetchUserInfo: getUserInfo,
+    //   currentUser,
+    //   settings: defaultSettings as Partial<LayoutSettings>,
+    // };
+
+    const currentUser = await getUserInfo();
+    result.currentUser = currentUser;
+    return result;
   }
-  return {
-    fetchUserInfo,
-    settings: defaultSettings as Partial<LayoutSettings>,
-  };
+
+  // return {
+  //   fetchUserInfo: getUserInfo,
+  //   settings: defaultSettings as Partial<LayoutSettings>,
+  // };
+
+  return result;
 }
 
 // ProLayout 支持的api https://procomponents.ant.design/components/layout

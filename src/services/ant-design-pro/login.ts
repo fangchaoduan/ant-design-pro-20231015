@@ -11,11 +11,13 @@ export async function getFakeCaptcha(
   },
   options?: { [key: string]: any },
 ) {
-  return request<API.FakeCaptcha>('/api/login/captcha', {
+  const res = await request<API.FakeCaptcha>('/api/login/captcha', {
     method: 'GET',
     params: {
       ...params,
     },
     ...(options || {}),
   });
+  console.log(`发送验证码 POST /api/login/captcha: res-->`, res);
+  return res;
 }

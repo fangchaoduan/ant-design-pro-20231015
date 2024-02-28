@@ -56,6 +56,7 @@ declare namespace API {
     success?: boolean;
   };
 
+  /**  发送验证码 */
   type FakeCaptcha = {
     code?: number;
     status?: string;

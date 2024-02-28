@@ -9,7 +9,7 @@ const waitTime = (time: number = 100) => {
 };
 
 async function getFakeCaptcha(req: Request, res: Response) {
-  await waitTime(2000);
+  await waitTime(100);
   return res.json('captcha-xxx');
 }
 
@@ -96,30 +96,34 @@ export default {
       },
     });
   },
-  // GET POST 可省略
-  'GET /api/users': [
-    {
-      key: '1',
-      name: 'John Brown',
-      age: 32,
-      address: 'New York No. 1 Lake Park',
-    },
-    {
-      key: '2',
-      name: 'Jim Green',
-      age: 42,
-      address: 'London No. 1 Lake Park',
-    },
-    {
-      key: '3',
-      name: 'Joe Black',
-      age: 32,
-      address: 'Sidney No. 1 Lake Park',
-    },
-  ],
+  // // GET POST 可省略
+  // 'GET /api/users': [
+  //   {
+  //     key: '1',
+  //     name: 'John Brown',
+  //     age: 32,
+  //     address: 'New York No. 1 Lake Park',
+  //   },
+  //   {
+  //     key: '2',
+  //     name: 'Jim Green',
+  //     age: 42,
+  //     address: 'London No. 1 Lake Park',
+  //   },
+  //   {
+  //     key: '3',
+  //     name: 'Joe Black',
+  //     age: 32,
+  //     address: 'Sidney No. 1 Lake Park',
+  //   },
+  // ],
+
+  // 登录接口。
   'POST /api/login/account': async (req: Request, res: Response) => {
     const { password, username, type } = req.body;
-    await waitTime(2000);
+    // await waitTime(2000);
+    console.log(`req.body-->`, JSON.stringify(req.body));
+
     if (password === 'ant.design' && username === 'admin') {
       res.send({
         status: 'ok',
