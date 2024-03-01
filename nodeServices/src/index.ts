@@ -13,17 +13,10 @@ const port = 3000;
 
 app.use(bodyParser.json());
 
-const waitTime = (time: number = 100) => {
-  return new Promise<boolean>((resolve) => {
-    setTimeout(() => {
-      resolve(true);
-    }, time);
-  });
-};
-
-let access =
-  process.env.ANT_DESIGN_PRO_ONLY_DO_NOT_USE_IN_YOUR_PRODUCTION === 'site' ? 'admin' : '';
-
+// let access = process.env.ANT_DESIGN_PRO_ONLY_DO_NOT_USE_IN_YOUR_PRODUCTION === 'site' ? 'admin' : '';
+type AccessType = '' | 'admin' | 'user' | 'guest';
+let access: AccessType = '';
+// 统一计算一下用户的权限;
 const getAccess = () => {
   return access;
 };
@@ -185,6 +178,13 @@ app.get('/api/401', (req: Request, res: Response) => {
 });
 
 app.get('/api/login/captcha', async (req: Request, res: Response) => {
+  const waitTime = (time: number = 100) => {
+    return new Promise<boolean>((resolve) => {
+      setTimeout(() => {
+        resolve(true);
+      }, time);
+    });
+  };
   await waitTime(100);
   res.json('captcha-xxx');
 });
