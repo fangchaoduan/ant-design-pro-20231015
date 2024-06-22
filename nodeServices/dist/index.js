@@ -46,15 +46,8 @@ const url_1 = require('url');
 const app = (0, express_1.default)();
 const port = 3000;
 app.use(body_parser_1.default.json());
-const waitTime = (time = 100) => {
-  return new Promise((resolve) => {
-    setTimeout(() => {
-      resolve(true);
-    }, time);
-  });
-};
-let access =
-  process.env.ANT_DESIGN_PRO_ONLY_DO_NOT_USE_IN_YOUR_PRODUCTION === 'site' ? 'admin' : '';
+let access = '';
+// 统一计算一下用户的权限;
 const getAccess = () => {
   return access;
 };
@@ -210,6 +203,13 @@ app.get('/api/401', (req, res) => {
 });
 app.get('/api/login/captcha', (req, res) =>
   __awaiter(void 0, void 0, void 0, function* () {
+    const waitTime = (time = 100) => {
+      return new Promise((resolve) => {
+        setTimeout(() => {
+          resolve(true);
+        }, time);
+      });
+    };
     yield waitTime(100);
     res.json('captcha-xxx');
   }),
